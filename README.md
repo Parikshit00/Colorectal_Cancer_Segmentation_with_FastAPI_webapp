@@ -12,8 +12,9 @@ The model that has been used is an advanced version of Unet which is a combinati
 
 The model was trained for 50 epochs and produced satisfactory output.
 
-![result1](/media/result1.png)
-![result2](/media/result2.png)
+![result1](/media/result1.png)  
+
+![result2](/media/result14.png)
 
 ##### Note 
 This is an ongoing project and various steps towards achieving good accuracy is being done.
