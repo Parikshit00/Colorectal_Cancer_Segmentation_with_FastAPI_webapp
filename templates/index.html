@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Inference</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        #image-preview {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #result {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Cancer Inference</h1>
+    </header>
+
+    <main>
+        <form id="image-form" enctype="multipart/form-data">
+            <label for="file-input">Choose an image</label>
+            <input type="file" id="file-input" accept="image/*" onchange="previewImage()">
+        </form>
+
+        <img id="image-preview" src="#" alt="Image Preview">
+
+        <div id="result"></div>
+    </main>
+
+    <script>
+        function previewImage() {
+            var fileInput = document.getElementById('file-input');
+            var imagePreview = document.getElementById('image-preview');
+            var resultDiv = document.getElementById('result');
+
+            var file = fileInput.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    resultDiv.textContent = "Analyzing...";
+                    // You can add logic here to send the image to the backend for inference
+                    // and update the resultDiv accordingly.
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+
+</html>

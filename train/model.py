@@ -4,7 +4,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-
 class Recurrent_block(nn.Module):
     def __init__(self, cout, t):
         super().__init__()
