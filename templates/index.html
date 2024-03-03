@@ -3,99 +3,101 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cancer Inference</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+    <title>Colon Cancer Segmentation App </title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
-        header {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1em;
-        }
-
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-
-        #image-preview {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        #result {
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
-        label {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
-            display: inline-block;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <meta name="title" content="ColonCARE">
+    <meta name="description" content="Colorectan Cancer Segmentation Webapp">
+    <link rel="canonical" href="/">
 </head>
 
-<body>
-    <header>
-        <h1>Cancer Inference</h1>
-    </header>
+<body class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12" style="font-family: Poppins;">
+    <div class="relative py-3 px-4 sm:px-0 sm:max-w-lg w-full sm:mx-auto">
+        <!-- Background Box -->
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+        </div>
+        <div class="relative px-4 py-10 bg-white shadow-lg rounded-3xl w-full sm:p-20 items-center">
+            <!-- Heading with logo -->
+            <div class="flex flex-col space-y-2 items-center">
+                <h1 class="font-bold text-center flex flex-col">
+                    <span class="text-6xl text-transparent bg-clip-text bg-gradient-to-br from-green-400 via-green-600 to-green-400">ColonCARE</span>
+                </h1>
+                <small class="text-gray-600 text-sm font-light">Colorectal Cancer Segmentation</small>
+            </div>
 
-    <main>
-        <form id="image-form" enctype="multipart/form-data">
-            <label for="file-input">Choose an image</label>
-            <input type="file" id="file-input" accept="image/*" onchange="previewImage()">
-        </form>
+            <!-- Center Body Part -->
+            <div class="py-6 justify-center items-center max-w-sm">
 
-        <img id="image-preview" src="#" alt="Image Preview">
+                {%if not result%}
+                <form action="/" enctype="multipart/form-data" method="post"
+                    class="space-y-4 flex flex-col max-w-sm justify-center items-center">
+                    <!-- Preview image -->
+                    <div id="preview-img" class="flex flex-col space-y-2 items-center"></div>
 
-        <div id="result"></div>
-    </main>
+                    <label id="label" onchange="load(event,'preview-img')"
+                        class="w-64 h-48 justify-center flex flex-col items-center px-4 py-6 bg-white rounded-md shadow-md tracking-wide border border-green cursor-pointer hover:bg-green-500 hover:text-white text-green-500 ease-linear transition-all duration-150">
+                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z">
+                            </path>
+                            <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
+                        </svg>
+                        <span class="mt-2 text-sm">Select an image file</span>
 
-    <script>
-        function previewImage() {
-            var fileInput = document.getElementById('file-input');
-            var imagePreview = document.getElementById('image-preview');
-            var resultDiv = document.getElementById('result');
+                        <input type='file' class="hidden" name="file" accept="image/*" required />
+                    </label>
 
-            var file = fileInput.files[0];
+                    <input
+                        class="bg-green-600 rounded-full px-10 py-2 text-white hover:bg-green-700 hover:shadow-sm transition-all cursor-pointer"
+                        type="submit">
+                </form>
 
-            if (file) {
-                var reader = new FileReader();
+                {% else %}
 
-                reader.onload = function (e) {
-                    imagePreview.src = e.target.result;
-                    resultDiv.textContent = "Analyzing...";
-                    // You can add logic here to send the image to the backend for inference
-                    // and update the resultDiv accordingly.
-                };
+                <div class="py-4 space-y-2 flex flex-col items-center">
+                    {% if result.image_data %}
+                    <small class="text-gray-600 text-sm font-light">Input Image:</small>
+                    <img class="h-48 w-auto rounded shadow-sm" src='{{result.image_data}}' alt="{{result.filename}}" />
+                    
+                    <small class="text-gray-600 text-sm font-light">Mask</small>
+                    <img class="h-48 w-auto rounded shadow-sm" src='{{result.mask_data}}' alt="{{result.filename}}" />
+                    {% endif %}
+                    <div>
+                        <small class="text-gray-600 text-base">Inference Time:{{result.inference_time}}</small>
+                    </div>
+                </div>
+                {% endif %}
 
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
+
+                {% if error %}
+                    <p class="text-sm text-green-400 text-center pt-2 capitalize">Try with another image.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    load = function (event, id) {
+        document.getElementById(id).innerHTML = '<span class="text-sm font-medium">Preview<span>';
+        var file = event.target.files[0];
+        var img = document.createElement('IMG');
+        img.className = 'h-48 w-auto rounded shadow-sm'
+        img.src = URL.createObjectURL(file);
+        document.getElementById(id).appendChild(img);
+        var label = document.getElementById("label");
+        label.classList.add("hidden");
+    };
+</script>
+
+</html>
 
 </html>
