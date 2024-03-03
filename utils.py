@@ -10,6 +10,7 @@ from train_metapolyp.model import custom_model
 import numpy as np
 import sys
 #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 device = torch.device("cpu")
 def load_model(model_path):
     model = custom_model(256,1).to(device)
@@ -22,9 +23,6 @@ def load_model(model_path):
 # model 
 model = load_model("train_metapolyp/checkpoints/best_model.ckpt")
 model.eval()
-
-# imagenet classes
-imagenet_class_index = json.load(open('./static/imagenet_class_index.json'))
 
 def mask_parse(mask):
     mask = np.squeeze(mask)
@@ -47,12 +45,12 @@ def get_prediction(image_bytes):
     output = model(tensor)
     return output.detach().numpy()
 
-
 def get_result(image_file,is_api = False):
     start_time = datetime.datetime.now()
     image_bytes = image_file.file.read()
-    mask = get_prediction(image_bytes)
-    out = mask_parse(mask)
+    #mask = get_prediction(image_bytes)
+    #out = mask_parse(mask)
+    out = "hi"
     out = out.tobytes()
     print(type(image_bytes))
     print(sys.getsizeof(image_bytes))

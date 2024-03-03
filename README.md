@@ -7,7 +7,8 @@ The webapp is setup to infer from trained `metapolyp` model checkpoint `best_mod
 To run the webapp run:  
 ```
 uvicorn main:app --reload
-```
+```  
+![WebApp](/media/webapp.png)
 # Dataset 
 
 The dataset of gastrointestinal polyp images and corresponding segmentation masks is from ![PraNet](https://github.com/DengPingFan/PraNet), with training set from 50% of Kvasir-SEG and 50% of ClinicDB dataset.
