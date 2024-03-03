@@ -9,6 +9,7 @@ To run the webapp run:
 uvicorn main:app --reload
 ```  
 ![WebApp](/media/webapp.png)
+
 # Dataset 
 
 The dataset of gastrointestinal polyp images and corresponding segmentation masks is from ![PraNet](https://github.com/DengPingFan/PraNet), with training set from 50% of Kvasir-SEG and 50% of ClinicDB dataset.
@@ -18,7 +19,7 @@ The dataset download link can be found at ![Google drive](https://drive.google.c
 
 # Models
 1. **MetapolyP:** The code provides an implementation of the Meta-Polyp baseline model for polyp segmentation in `torch`. This model architecture is detailed in the ![original paper](https://arxiv.org/pdf/2305.07848v3.pdf).  
-   The folder `train_metapoly` consistes of model and its layer inside `model.py`and `layers` folder respectively. The original official tensorflow implementation converted to torch by me. The code loads `CAFormer`pretrained weights as backbone using `Keras Cv Attention Models`package. Check the `train_metapoly/requirements.txt`to setup correct version of `kecam` package in your `pip` or `conda` environment before running `Lightning` style trainer code.
+   The folder `train_metapoly` consistes of model and its layer inside `model.py`and `layers` folder respectively. The original official tensorflow implementation was converted to torch by me. The code loads `CAFormer`pretrained weights as backbone using `Keras Cv Attention Models`package. Check the `train_metapoly/requirements.txt`to setup correct version of `kecam` package in your `pip` or `conda` environment before running `Lightning` style trainer code.
    
    To run the trainer, download the train dataset from google drive and place it inside as `train_metapoly/TrainDataset` and just run
    ```
@@ -26,8 +27,8 @@ The dataset download link can be found at ![Google drive](https://drive.google.c
    ```
    This will run the training with hyperparameter and implementation of trainer same as ![original implementation](https://github.com/huyquoctrinh/MetaPolyp-CBMS2023/tree/main).
    ![model_metapoly](/media/model1.png)
-3. **AttentionR2Unet:**
-   The model that has been used is an advanced version of Unet which is a combination of `R2Unet` and `Attention UNet`. The model architecture looks as follows:
+2. **AttentionR2Unet:**
+   The model that has been used is an advanced version of Unet which is a combination of `R2Unet` and `Attention UNet`. It uses a native torch type trainer. The model architecture looks as follows:
   ![model](/media/model.png)
 
 
