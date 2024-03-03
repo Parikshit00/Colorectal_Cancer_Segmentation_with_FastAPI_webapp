@@ -1,12 +1,18 @@
 # Description
 
-A FastAPI WebApp for colorectal cancer segmentation with torch version of `Metapolyp` and `AttentionR2Unet`. The dataset of gastrointestinal polyp images and corresponding segmentation masks, manually annotated and verified by an experienced gastroenterologist is from ![PraNet](https://github.com/DengPingFan/PraNet), with training set from 50% of Kvasir-SEG and 50% of ClinicDB dataset.
+A FastAPI WebApp for colorectal cancer segmentation with torch version of `Metapolyp` and `AttentionR2Unet`. 
 
-The dataset download link can be found at ![Google drive](https://drive.google.com/drive/folders/10SYLHNvO0fSrhhVhj5U-cFgOnTH5uGJf)
+# FastAPI WebApp
+The webapp is setup to infer from trained `metapolyp` model checkpoint `best_model.ckpt`inside `utils.py`, the inference can be adjusted here for other models. 
+To run the webapp run:  
+```
+uvicorn main:app --reload
+```
+# Dataset 
 
+The dataset of gastrointestinal polyp images and corresponding segmentation masks is from ![PraNet](https://github.com/DengPingFan/PraNet), with training set from 50% of Kvasir-SEG and 50% of ClinicDB dataset.
 
-The dataset consists of rgb images of regions of colon and a mask image to highlight the tumor areas.
-
+The dataset download link can be found at ![Google drive](https://drive.google.com/drive/folders/10SYLHNvO0fSrhhVhj5U-cFgOnTH5uGJf) which consists of `TrainDataset`and `TestDataset` for training and benchmarking respectively.
 ![Dataset](/media/dataset.png)
 
 # Models
