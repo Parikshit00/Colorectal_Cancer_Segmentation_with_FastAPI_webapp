@@ -17,9 +17,14 @@ The dataset download link can be found at ![Google drive](https://drive.google.c
 ![Dataset](/media/dataset.png)
 
 # Models
-1. **MetapolyP:** The code provides an implementation of the Meta-Polyp baseline model for polyp segmentation in `torch`. This model architecture is detailed in the ![original paper](https://arxiv.org/pdf/2305.07848v3.pdf).
+1. **MetapolyP:** The code provides an implementation of the Meta-Polyp baseline model for polyp segmentation in `torch`. This model architecture is detailed in the ![original paper](https://arxiv.org/pdf/2305.07848v3.pdf).  
    The folder `train_metapoly` consistes of model and its layer (converted to torch from its official tensorflow implemtation) inside `model.py`and `layers` folder respectively.
-   To run the trainer, download the train dataset from google drive and place it inside as `train_metapoly/TrainDataset` and just run `python train.py`.
+   
+   To run the trainer, download the train dataset from google drive and place it inside as `train_metapoly/TrainDataset` and just run
+   ```
+   python train.py
+   ```
+   This will run the training with hyperparameter and implementation of trainer same as ![original implementation](https://github.com/huyquoctrinh/MetaPolyp-CBMS2023/tree/main).
    ![model_metapoly](/media/model1.png)
 3. **AttentionR2Unet:**
    The model that has been used is an advanced version of Unet which is a combination of `R2Unet` and `Attention UNet`. The model architecture looks as follows:
