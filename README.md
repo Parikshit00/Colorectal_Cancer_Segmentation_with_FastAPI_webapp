@@ -12,17 +12,17 @@ uvicorn main:app --reload
 
 # Inference and PostProcessing Steps
 The input image would be inferred by loading the saved weights.  
-The initial mask looks a bit pixelated in the edges. To address this, I have done `GaussianBlur` with `morphological operations` to make it more smoother. This also helps to find accurate contour and bounding boxes.  
-Then the bbox is drawn over original input for detailed visualization:  
+The initial mask looks a bit pixelated in the edges. To address this, I have done `GaussianBlur` with `morphological operations` to make it more smoother. This also helps to find accurate contour and bounding boxes. Then the bbox is drawn over original input for detailed visualization:  
 
-![Inference](/media/inference.png)
+![Inference](/media/inferred.png)
 
 # Installation
+
 ## Pip
 In the root folder of this repo: 
-´´´
+```
 pip install -r requirements.txt
-´´´
+```
 
 ## Webapp Docker
 You can directly build the FastAPI webapp in docker. To do this, first setup your FastAPI webapp `weights`folder as specified above. Then run:  
