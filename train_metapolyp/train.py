@@ -87,18 +87,15 @@ starter_learning_rate = 1e-4
 end_learning_rate = 1e-6
 decay_steps = 1000
 
+data_path = os.path.abspath('../datasets')
+route = os.path.join(data_path,'TrainDataset')
+X_path = os.path.join(data_path,'TrainDataset/image/')
+Y_path = os.path.join(data_path,'TrainDataset/masks/')
 
-route = 'TrainDataset'
-X_path = 'TrainDataset/images/'
-Y_path = 'TrainDataset/masks/'
 
-# route = './Kvasir-SEG'
-# X_path = './Kvasir-SEG/images/'
-# Y_path = './Kvasir-SEG/masks/'
 valid_extensions = ['.jpg', '.jpeg', '.png']
-#X_full = sorted(os.listdir(f'{route}/images'))
-#Y_full = sorted(os.listdir(f'{route}/masks'))
-X_full = sorted([file for file in os.listdir(f'{route}/images') if file.lower().endswith(('.jpg', '.jpeg', '.png'))])
+
+X_full = sorted([file for file in os.listdir(f'{route}/image') if file.lower().endswith(('.jpg', '.jpeg', '.png'))])
 Y_full = sorted([file for file in os.listdir(f'{route}/masks') if file.lower().endswith(('.jpg', '.jpeg', '.png'))])
 X_train, X_valid = train_test_split(X_full, test_size=valid_size, random_state=SEED)
 Y_train, Y_valid = train_test_split(Y_full, test_size=valid_size, random_state=SEED)
@@ -137,7 +134,7 @@ data_module = DataModule(train_dataset, valid_dataset, test_dataset)
 model = custom_model(256,1).to(device=device)
 summary(model.to(device), (3,256,256))
 criterion = dice_loss
-#Metrics: dice_coeff,bce_dice_loss, IoU, zero_IoU
+
 metrics = {
     "dice_coeff": dice_coeff,
     "bce_dice_loss":bce_dice_loss,
