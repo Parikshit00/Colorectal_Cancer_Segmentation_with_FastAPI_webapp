@@ -3,16 +3,16 @@ from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import utils
+from mangum import Mangum
 
 app = FastAPI()
+handler = Mangum(app)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 def home_page(request: Request):
     return templates.TemplateResponse("index.html", {"request" : request})
-
 
 @app.post("/")
 async def home_predict(request: Request, file: UploadFile = File(...)):
@@ -23,8 +23,3 @@ async def home_predict(request: Request, file: UploadFile = File(...)):
     except Exception as ex:
         error = ex
     return templates.TemplateResponse("index.html", {"request": request, "result": result , "error": error})
-
-
-@app.post("/predict")
-async def predict(file: UploadFile = File(...)):
-    return utils.get_result(image_file=file, is_api=True)
